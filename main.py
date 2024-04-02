@@ -2,9 +2,11 @@ def main():
     book_path = "books/frankenstein.txt"
     book_text = get_book_text(book_path)
     lower_book_text = text_lower(book_text)
+    number_o_words = get_num_words(book_text)
     list_o_letters = make_letters(lower_book_text)
     filled_letter_dict = count_letters(list_o_letters)
-    print(filled_letter_dict)
+    list_filled_letter_dict = list_o_dict(filled_letter_dict)
+    print_report(list_filled_letter_dict, number_o_words)
     
 
 
@@ -47,4 +49,23 @@ def count_letters(letters):
             letter_dict[letter] += 1
     return letter_dict   
 
+def list_o_dict(filled_letter_dict):
+    dict_list = []
+    for entry in filled_letter_dict:
+        dict = {}
+        dict[entry] = filled_letter_dict[entry]
+        dict_list.append(dict)
+    return dict_list
+        
+
+def print_report(filled_dict, word_count):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    letter_list = list(alphabet)
+    print("--- Begin report of books/frankenstein.txt ---")
+    print(f"{word_count} words in this document")
+    for i in range(0, len(letter_list)):
+        selected_dict = filled_dict[i]
+        print(f"The '{letter_list[i]}' character was found {selected_dict[letter_list[i]]} number of times")
+    print("--- End report ---")
+    
 main()
